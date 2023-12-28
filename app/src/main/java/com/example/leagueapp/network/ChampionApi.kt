@@ -24,3 +24,7 @@ fun List<ChampionApi>.asDomainObjects(): List<ChampionMin> {
     return domainList
 }
 
+fun ChampionApi.asDomainObject() : ChampionMin {
+    return ChampionMin(this.id, this.name)
+}
+

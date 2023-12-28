@@ -4,7 +4,6 @@ import com.example.leagueapp.network.ChampionApi
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ChampionItem(
-    val champions: List<ChampionApi>,
-    val count: Int
+data class ChampionData(
+    val data: Map<String, ChampionApi>
 )

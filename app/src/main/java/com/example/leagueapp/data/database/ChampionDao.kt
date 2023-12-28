@@ -11,7 +11,7 @@ interface ChampionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(item: dbChampion)
 
-    @Query("SELECT * FROM Champions")
+    @Query("SELECT * FROM champions")
     fun getAllChampions(): Flow<List<dbChampion>>
 
 }

@@ -7,6 +7,7 @@ import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import retrofit2.Retrofit
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 
 interface AppContainer {
     val championRepository: ChampionRepository
@@ -15,10 +16,8 @@ interface AppContainer {
 class DefaultAppContainer(private val context: Context) : AppContainer {
     private val baseUrl  = "https://ddragon.leagueoflegends.com/"
     private val retrofit = Retrofit.Builder()
-        .addConverterFactory(
-            Json.asConverterFactory("application/json".toMediaType()),
-        )
         .baseUrl(baseUrl)
+        .addConverterFactory(GsonConverterFactory.create())
         .build()
 
     private val retrofitService: ChampionApiService by lazy {

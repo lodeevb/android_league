@@ -1,38 +1,58 @@
 package com.example.leagueapp.ui.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.unit.dp
 import com.example.leagueapp.model.ChampionMin
 
 @Composable
-fun GridItem(item: ChampionMin){
-    Column(
+fun GridItem(champion: ChampionMin, onItemClick: () -> Unit){
+    val context = LocalContext.current
+    val resourceId = context.resources.getIdentifier(champion.id.lowercase(),"drawable",context.packageName)
+    Box(
         modifier = Modifier
             .padding(4.dp)
-            .fillMaxWidth()
+            .clickable { onItemClick.invoke() }
     ) {
-/*        Image(
-            painter = painterResource(id = null),
-            contentDescription = null,
+        Column(
             modifier = Modifier
-                .size(100.dp)
-                .fillMaxWidth()
-        )*/
-        Text(
-            text = item.name,
-            textAlign = TextAlign.Center,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.fillMaxWidth(),
-        )
+                .fillMaxSize()
+                .padding(8.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Image(
+                painter = painterResource(id = resourceId),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(100.dp)
+                    .fillMaxWidth()
+            )
+            Text(
+                text = champion.name,
+                textAlign = TextAlign.Center,
+                color = Color.White,
+                modifier = Modifier.fillMaxWidth(),
+            )
+        }
     }
 }
