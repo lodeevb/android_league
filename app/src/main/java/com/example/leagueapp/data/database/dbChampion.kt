@@ -27,7 +27,7 @@ fun ChampionMin.asDbChampion(): dbChampion {
     )
 }
 
-fun List<dbChampion>.asDomainTasks(): List<ChampionMin> {
+fun List<dbChampion>.asDomainObjects(): List<ChampionMin> {
     var championList = this.map {
         ChampionMin(it.id, it.name)
     }

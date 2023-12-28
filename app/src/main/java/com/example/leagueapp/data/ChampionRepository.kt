@@ -2,10 +2,11 @@ package com.example.leagueapp.data
 
 import android.util.Log
 import com.example.leagueapp.data.database.ChampionDao
-import com.example.leagueapp.data.database.ChampionDb
+import com.example.leagueapp.data.database.ChampionDetailDao
+import com.example.leagueapp.data.database.ChampionDetailDb
 import com.example.leagueapp.data.database.asDbChampion
-import com.example.leagueapp.data.database.asDomainTasks
-import com.example.leagueapp.data.database.dbChampion
+import com.example.leagueapp.data.database.asDomainObject
+import com.example.leagueapp.data.database.asDomainObjects
 import com.example.leagueapp.model.ChampionDetail
 import com.example.leagueapp.model.ChampionMin
 import com.example.leagueapp.network.asDomainObject
@@ -19,16 +20,18 @@ import java.net.SocketTimeoutException
 interface ChampionRepository {
     fun getChampions(): Flow<List<ChampionMin>>
 
+    fun getChampionDetail(championid: String): Flow<ChampionDetail>
+
     suspend fun insertChampion(champion: ChampionMin)
 
     suspend fun refresh()
 }
 
-class CachingChampionRepository(private val championDao: ChampionDao, private val championApiService: ChampionApiService) : ChampionRepository {
+class CachingChampionRepository(private val championDao: ChampionDao, private val championDetailDao:  ChampionDetailDao, val championApiService: ChampionApiService) : ChampionRepository {
 
     override fun getChampions(): Flow<List<ChampionMin>> {
             return championDao.getAllChampions().map {
-                it.asDomainTasks()
+                it.asDomainObjects()
             }.onEach {
                 if (it.isEmpty()) {
                     refresh()
@@ -36,9 +39,16 @@ class CachingChampionRepository(private val championDao: ChampionDao, private va
             }
     }
 
+    override fun getChampionDetail(championid: String): Flow<ChampionDetail> {
+        return championDetailDao.getChampionDetails(championid).map {
+            it.asDomainObject()
+        }
+    }
+
     override suspend fun insertChampion(champion: ChampionMin) {
         championDao.insert(champion.asDbChampion())
     }
+
 
     override suspend fun refresh() {
         try {
@@ -54,3 +64,4 @@ class CachingChampionRepository(private val championDao: ChampionDao, private va
         }
     }
 }
+

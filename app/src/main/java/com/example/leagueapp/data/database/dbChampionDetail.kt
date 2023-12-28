@@ -21,3 +21,7 @@ fun ChampionDetail.asDbChampionDetail(): dbChampionDetail {
         lore = this.lore
     )
 }
+
+fun dbChampionDetail.asDomainObject(): ChampionDetail {
+    return ChampionDetail(this.id, this.name, this.title, this.lore)
+}

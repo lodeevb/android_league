@@ -2,6 +2,7 @@ package com.example.leagueapp.data
 
 import android.content.Context
 import com.example.leagueapp.data.database.ChampionDb
+import com.example.leagueapp.data.database.ChampionDetailDb
 import com.example.leagueapp.network.services.ChampionApiService
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -25,6 +26,6 @@ class DefaultAppContainer(private val context: Context) : AppContainer {
     }
 
     override val championRepository: ChampionRepository by lazy {
-        CachingChampionRepository(ChampionDb.getDatabase(context = context).ChampionDao(), retrofitService)
+        CachingChampionRepository(ChampionDb.getDatabase(context = context).ChampionDao(), ChampionDetailDb.getDatabase(context = context).ChampionDetailDao() ,retrofitService)
     }
 }
