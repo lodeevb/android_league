@@ -11,19 +11,6 @@ data class ChampionApi(
     val name: String
 )
 
-fun Flow<List<ChampionApi>>.asDomainObjects(): Flow<List<ChampionMin>> {
-    return map {
-        it.asDomainObjects()
-    }
-}
-
-fun List<ChampionApi>.asDomainObjects(): List<ChampionMin> {
-    var domainList = this.map {
-        ChampionMin(it.id, it.name)
-    }
-    return domainList
-}
-
 fun ChampionApi.asDomainObject() : ChampionMin {
     return ChampionMin(this.id, this.name)
 }

@@ -6,6 +6,7 @@ import com.example.leagueapp.data.database.ChampionDb
 import com.example.leagueapp.data.database.asDbChampion
 import com.example.leagueapp.data.database.asDomainTasks
 import com.example.leagueapp.data.database.dbChampion
+import com.example.leagueapp.model.ChampionDetail
 import com.example.leagueapp.model.ChampionMin
 import com.example.leagueapp.network.asDomainObject
 import com.example.leagueapp.network.services.ChampionApiService

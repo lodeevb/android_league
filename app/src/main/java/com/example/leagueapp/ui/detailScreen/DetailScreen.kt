@@ -5,7 +5,4 @@ import androidx.compose.runtime.Composable
 
 @Composable
 fun DetailScreen(championid: String) {
-    Text(
-        text = championid
-    )
 }
