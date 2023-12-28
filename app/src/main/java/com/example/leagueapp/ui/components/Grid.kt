@@ -30,7 +30,7 @@ fun Grid(championList: List<ChampionMin>, navController: NavHostController) {
             content = {
                 items(championList) { champion ->
                     GridItem(champion = champion) {
-                        navController.navigate("champion/${champion.id.lowercase()}")
+                        navController.navigate("champion/${champion.id}")
                     }
                 }
             }

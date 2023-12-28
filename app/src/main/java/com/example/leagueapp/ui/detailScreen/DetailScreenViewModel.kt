@@ -22,29 +22,6 @@ import java.io.IOException
 
 class DetailScreenViewModel(private val championRepository: ChampionRepository) : ViewModel() {
 
-    var detailScreenState: DetailScreenState by mutableStateOf(DetailScreenState.Loading)
-        private set
-
-    lateinit var championDetailState: StateFlow<ChampionDetailState>
-
-    suspend fun getChampDetails(championid: String) {
-        try {
-            viewModelScope.launch { championRepository.refresh() }
-            championDetailState = championRepository.getChampionDetail(championid).map {
-                ChampionDetailState(it)
-            }.stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5_000L),
-                initialValue = ChampionDetailState(),
-            )
-            detailScreenState = DetailScreenState.Success
-
-        }
-        catch (e: IOException) {
-            detailScreenState = DetailScreenState.Error
-        }
-    }
-
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {

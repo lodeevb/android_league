@@ -14,7 +14,7 @@ interface ChampionApiService {
     @GET("cdn/13.24.1/data/en_US/champion.json")
     suspend fun getChampionData(): ChampionData
 
-    @GET("cdn/13.24.1/data/en_US/champion/{championid}")
+    @GET("cdn/13.24.1/data/en_US/champion/{championid}.json")
     suspend fun getChampionDetails(@Path("championid") championid: String): ChampionDetailData
 
 }
