@@ -1,5 +1,6 @@
 package com.example.leagueapp.data.database
 
+import android.util.Log
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.leagueapp.model.ChampionDetail

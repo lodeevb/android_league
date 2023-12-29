@@ -6,6 +6,7 @@ import com.example.leagueapp.network.ChampionDetailApi
 import com.example.leagueapp.network.items.ChampionData
 import com.example.leagueapp.network.items.ChampionDetailData
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.flow
 import retrofit2.http.GET
 import retrofit2.http.Path

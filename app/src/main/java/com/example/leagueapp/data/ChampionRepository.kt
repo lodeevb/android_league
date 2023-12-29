@@ -3,7 +3,6 @@ package com.example.leagueapp.data
 import android.util.Log
 import com.example.leagueapp.data.database.ChampionDao
 import com.example.leagueapp.data.database.ChampionDetailDao
-import com.example.leagueapp.data.database.ChampionDetailDb
 import com.example.leagueapp.data.database.asDbChampion
 import com.example.leagueapp.data.database.asDbChampionDetail
 import com.example.leagueapp.data.database.asDomainObject
@@ -29,6 +28,8 @@ interface ChampionRepository {
     suspend fun insertChampionDetail(championDetail: ChampionDetail)
 
     suspend fun refresh()
+
+    suspend fun refreshDetails(championid: String)
 }
 
 class CachingChampionRepository(private val championDao: ChampionDao, private val championDetailDao:  ChampionDetailDao, val championApiService: ChampionApiService) : ChampionRepository {
@@ -68,6 +69,18 @@ class CachingChampionRepository(private val championDao: ChampionDao, private va
                 }
             }
 
+        } catch (e: SocketTimeoutException) {
+            // log something
+        }
+    }
+
+    override suspend fun refreshDetails(championid: String) {
+        try {
+            championApiService.getChampionDetailsAsFlow(championid).collect {
+                    championDetail ->
+                    Log.i("DetailTest", "refreshDetail: $championDetail")
+                    insertChampionDetail(championDetail.asDomainObject())
+            }
         } catch (e: SocketTimeoutException) {
             // log something
         }

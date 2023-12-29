@@ -30,7 +30,7 @@ class HomeScreenViewModel(private val championRepository: ChampionRepository) : 
 
     private fun getRepoChampions() {
         try {
-            viewModelScope.launch { championRepository.refresh() }
+            /*viewModelScope.launch { championRepository.refresh() }*/
             championListState = championRepository.getChampions().map {
                 ChampionListState(it)
             }.stateIn(

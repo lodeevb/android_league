@@ -5,9 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [dbChampion::class], version = 2, exportSchema = false)
+@Database(entities = [dbChampion::class, dbChampionDetail::class], version = 3, exportSchema = false)
 abstract class ChampionDb: RoomDatabase() {
     abstract fun ChampionDao(): ChampionDao
+    abstract fun ChampionDetailDao(): ChampionDetailDao
 
     companion object{
         @Volatile
