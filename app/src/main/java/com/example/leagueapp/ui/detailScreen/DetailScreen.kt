@@ -1,10 +1,16 @@
 package com.example.leagueapp.ui.detailScreen
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -13,10 +19,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.leagueapp.R
 import com.example.leagueapp.ui.theme.Beaufort
 
 @Composable
@@ -26,15 +35,17 @@ fun DetailScreen(viewModel : DetailScreenViewModel = viewModel(factory = DetailS
     }
     val detailChampionState by viewModel.detailChampionState.collectAsState()
     val championDetail = detailChampionState.championDetail
-
+    BackgroundImage(modifier = Modifier.fillMaxSize())
     Box(
         modifier = Modifier
-            .fillMaxSize(),
-        contentAlignment = Alignment.Center
-
+            .fillMaxSize()
+            .padding(10.dp),
+        contentAlignment = Alignment.TopCenter
     ) {
         Column(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 50.dp),
             verticalArrangement = Arrangement.Top
         ){
             Text(
@@ -49,9 +60,40 @@ fun DetailScreen(viewModel : DetailScreenViewModel = viewModel(factory = DetailS
                 textAlign = TextAlign.Center,
                 color = Color.White,
                 fontFamily = Beaufort,
-                fontSize = 32.sp,
+                fontSize = 62.sp,
                 modifier = Modifier.fillMaxWidth(),
             )
+            Column(
+                modifier = Modifier
+                    .height(200.dp)
+                    .fillMaxWidth()
+                    .verticalScroll(rememberScrollState())
+            ) {
+                Text(
+                    text = championDetail.lore,
+                    textAlign = TextAlign.Justify,
+                    color = Color.White,
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                )
+            }
         }
     }
+}
+
+@Composable
+fun BackgroundImage(modifier: Modifier = Modifier) {
+    val backgroundImage = R.drawable.aatroxfull
+    Image(
+        painter = painterResource(id = backgroundImage),
+        contentDescription = null,
+        modifier = Modifier.fillMaxSize(),
+        alignment = Alignment.TopCenter,
+        contentScale = ContentScale.Crop
+    )
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black.copy(alpha = 0.5f))
+    )
 }
