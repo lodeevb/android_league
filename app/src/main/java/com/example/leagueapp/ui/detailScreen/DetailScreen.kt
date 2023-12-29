@@ -20,12 +20,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.leagueapp.R
 import com.example.leagueapp.ui.theme.Beaufort
 
 @Composable
@@ -35,7 +35,7 @@ fun DetailScreen(viewModel : DetailScreenViewModel = viewModel(factory = DetailS
     }
     val detailChampionState by viewModel.detailChampionState.collectAsState()
     val championDetail = detailChampionState.championDetail
-    BackgroundImage(modifier = Modifier.fillMaxSize())
+    BackgroundImage(modifier = Modifier.fillMaxSize(), championId)
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -82,10 +82,12 @@ fun DetailScreen(viewModel : DetailScreenViewModel = viewModel(factory = DetailS
 }
 
 @Composable
-fun BackgroundImage(modifier: Modifier = Modifier) {
-    val backgroundImage = R.drawable.aatroxfull
+fun BackgroundImage(modifier: Modifier = Modifier, championId: String) {
+    val context = LocalContext.current
+    var name = championId.lowercase() + "full"
+    val resourceId = context.resources.getIdentifier(name,"drawable",context.packageName)
     Image(
-        painter = painterResource(id = backgroundImage),
+        painter = painterResource(id = resourceId),
         contentDescription = null,
         modifier = Modifier.fillMaxSize(),
         alignment = Alignment.TopCenter,
