@@ -15,8 +15,8 @@ interface ChampionApiService {
     @GET("cdn/13.24.1/data/en_US/champion.json")
     suspend fun getChampionData(): ChampionData
 
-    @GET("cdn/13.24.1/data/en_US/champion/{championid}.json")
-    suspend fun getChampionDetails(@Path("championid") championid: String): ChampionDetailData
+    @GET("cdn/13.24.1/data/en_US/champion/{championId}.json")
+    suspend fun getChampionDetails(@Path("championId") championId: String): ChampionDetailData
 
 }
 
@@ -31,9 +31,9 @@ fun ChampionApiService.getChampionsAsFlow(): Flow<List<ChampionApi>> = flow {
     }
 }
 
-fun ChampionApiService.getChampionDetailsAsFlow(championid: String): Flow<ChampionDetailApi> = flow {
+fun ChampionApiService.getChampionDetailsAsFlow(championId: String): Flow<ChampionDetailApi> = flow {
     try {
-        val championDetails = getChampionDetails(championid)
+        val championDetails = getChampionDetails(championId)
         val champDetails = championDetails.data.values.first()
         emit(champDetails)
     }

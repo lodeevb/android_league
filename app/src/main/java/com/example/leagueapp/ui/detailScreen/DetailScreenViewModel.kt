@@ -1,5 +1,6 @@
 package com.example.leagueapp.ui.detailScreen
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -13,8 +14,10 @@ import com.example.leagueapp.data.ChampionRepository
 import com.example.leagueapp.ui.homeScreen.ChampionListState
 import com.example.leagueapp.ui.homeScreen.HomeScreenState
 import com.example.leagueapp.ui.homeScreen.HomeScreenViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -25,18 +28,17 @@ class DetailScreenViewModel(private val championRepository: ChampionRepository) 
     var detailScreenState: DetailScreenState by mutableStateOf(DetailScreenState.Loading)
         private set
 
-    lateinit var detailChampionState: StateFlow<ChampionDetailState>
+    private val _detailChampionState = MutableStateFlow(ChampionDetailState(/* Initial value */))
+    val detailChampionState: StateFlow<ChampionDetailState> = _detailChampionState
 
-    fun fetchChampionDetails(championid: String) {
+    fun fetchChampionDetails(championId: String) {
         try {
-            detailChampionState = championRepository.getChampionDetail(championid).map {
-                ChampionDetailState(it)
-            }.stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5_000L),
-                initialValue = ChampionDetailState()
-            )
-            detailScreenState = DetailScreenState.Success
+            viewModelScope.launch {
+                championRepository.refreshDetails(championId)
+                val championDetail = championRepository.getChampionDetail(championId).first()
+                _detailChampionState.value = ChampionDetailState(championDetail)
+                detailScreenState = DetailScreenState.Success
+            }
         }
         catch (e: IOException) {
             detailScreenState = DetailScreenState.Error

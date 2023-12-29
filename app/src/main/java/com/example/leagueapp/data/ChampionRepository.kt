@@ -21,7 +21,7 @@ import java.net.SocketTimeoutException
 interface ChampionRepository {
     fun getChampions(): Flow<List<ChampionMin>>
 
-    fun getChampionDetail(championid: String): Flow<ChampionDetail>
+    fun getChampionDetail(championId: String): Flow<ChampionDetail>
 
     suspend fun insertChampion(champion: ChampionMin)
 
@@ -29,10 +29,10 @@ interface ChampionRepository {
 
     suspend fun refresh()
 
-    suspend fun refreshDetails(championid: String)
+    suspend fun refreshDetails(championId: String)
 }
 
-class CachingChampionRepository(private val championDao: ChampionDao, private val championDetailDao:  ChampionDetailDao, val championApiService: ChampionApiService) : ChampionRepository {
+class CachingChampionRepository(private val championDao: ChampionDao, private val championDetailDao:  ChampionDetailDao, private val championApiService: ChampionApiService) : ChampionRepository {
 
     override fun getChampions(): Flow<List<ChampionMin>> {
             return championDao.getAllChampions().map {
@@ -44,8 +44,8 @@ class CachingChampionRepository(private val championDao: ChampionDao, private va
             }
     }
 
-    override fun getChampionDetail(championid: String): Flow<ChampionDetail> {
-        return championDetailDao.getChampionDetails(championid).map {
+    override fun getChampionDetail(championId: String): Flow<ChampionDetail> {
+        return championDetailDao.getChampionDetails(championId).map {
             it.asDomainObject()
         }
     }
@@ -74,9 +74,9 @@ class CachingChampionRepository(private val championDao: ChampionDao, private va
         }
     }
 
-    override suspend fun refreshDetails(championid: String) {
+    override suspend fun refreshDetails(championId: String) {
         try {
-            championApiService.getChampionDetailsAsFlow(championid).collect {
+            championApiService.getChampionDetailsAsFlow(championId).collect {
                     championDetail ->
                     Log.i("DetailTest", "refreshDetail: $championDetail")
                     insertChampionDetail(championDetail.asDomainObject())

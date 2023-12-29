@@ -11,7 +11,7 @@ interface ChampionDetailDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(item: dbChampionDetail)
 
-    @Query("SELECT * FROM championDetails WHERE id = :championid")
-    fun getChampionDetails(championid: String): Flow<dbChampionDetail>
+    @Query("SELECT * FROM championDetails WHERE id = :championId")
+    fun getChampionDetails(championId: String): Flow<dbChampionDetail>
 
 }

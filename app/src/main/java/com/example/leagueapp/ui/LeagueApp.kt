@@ -60,7 +60,7 @@ fun Navigation(navController: NavHostController, innerPadding: PaddingValues) {
         ) { backStackEntry ->
             val championId = backStackEntry.arguments?.getString("championid")
             championId?.let {championId ->
-                DetailScreen(championid = championId)
+                DetailScreen(championId = championId)
             }
         }
     }
