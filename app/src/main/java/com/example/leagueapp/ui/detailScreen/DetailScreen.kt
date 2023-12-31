@@ -104,7 +104,6 @@ fun ScrollableLore(lore: String){
             )
         }
     }
-
 }
 
 @Composable
