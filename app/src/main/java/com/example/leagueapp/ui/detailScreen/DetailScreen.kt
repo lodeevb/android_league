@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
@@ -34,7 +36,8 @@ fun DetailScreen(viewModel : DetailScreenViewModel = viewModel(factory = DetailS
         viewModel.fetchChampionDetails(championId)
     }
     val detailChampionState by viewModel.detailChampionState.collectAsState()
-    val championDetail = detailChampionState.championDetail.championDetail
+    val championDetail = detailChampionState.champion.championDetail
+    val spells = detailChampionState.champion.spells
     BackgroundImage(modifier = Modifier.fillMaxSize(), championId)
     Box(
         modifier = Modifier
@@ -76,6 +79,14 @@ fun DetailScreen(viewModel : DetailScreenViewModel = viewModel(factory = DetailS
                     modifier = Modifier
                         .fillMaxWidth(),
                 )
+            }
+        }
+        LazyRow(
+            modifier = Modifier
+            .fillMaxWidth()
+        ) {
+            items(spells) { spell ->
+                Text(text = spell.id)
             }
         }
     }
