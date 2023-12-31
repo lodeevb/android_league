@@ -6,8 +6,8 @@ import com.example.leagueapp.model.Spell
 
 @Entity(tableName = "spells")
 data class dbSpell(
-    @PrimaryKey
     val championId: String,
+    @PrimaryKey
     val id: String,
     val name: String,
     val description: String,

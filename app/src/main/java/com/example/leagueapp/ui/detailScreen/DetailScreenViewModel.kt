@@ -1,6 +1,5 @@
 package com.example.leagueapp.ui.detailScreen
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -11,15 +10,9 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.leagueapp.LeagueApplication
 import com.example.leagueapp.data.ChampionRepository
-import com.example.leagueapp.ui.homeScreen.ChampionListState
-import com.example.leagueapp.ui.homeScreen.HomeScreenState
-import com.example.leagueapp.ui.homeScreen.HomeScreenViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.io.IOException
 

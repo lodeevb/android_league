@@ -1,7 +1,6 @@
 package com.example.leagueapp.network
 
 import com.example.leagueapp.model.ChampionDetail
-import com.example.leagueapp.model.ChampionMin
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -10,6 +9,7 @@ data class ChampionDetailApi(
     val name: String,
     val title: String,
     val lore: String,
+    val spells: List<SpellApi>
 )
 
 fun ChampionDetailApi.asDomainObject() : ChampionDetail {

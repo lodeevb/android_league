@@ -34,7 +34,7 @@ fun DetailScreen(viewModel : DetailScreenViewModel = viewModel(factory = DetailS
         viewModel.fetchChampionDetails(championId)
     }
     val detailChampionState by viewModel.detailChampionState.collectAsState()
-    val championDetail = detailChampionState.championDetail
+    val championDetail = detailChampionState.championDetail.championDetail
     BackgroundImage(modifier = Modifier.fillMaxSize(), championId)
     Box(
         modifier = Modifier

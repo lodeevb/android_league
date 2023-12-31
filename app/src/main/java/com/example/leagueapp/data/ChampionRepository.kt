@@ -2,13 +2,14 @@ package com.example.leagueapp.data
 
 import android.util.Log
 import com.example.leagueapp.data.database.champion.ChampionDao
-import com.example.leagueapp.data.database.championdetail.ChampionDetailDao
-import com.example.leagueapp.data.database.spell.SpellDao
 import com.example.leagueapp.data.database.champion.asDbChampion
-import com.example.leagueapp.data.database.championdetail.asDbChampionDetail
-import com.example.leagueapp.data.database.spell.asDbSpell
-import com.example.leagueapp.data.database.championdetail.asDomainObject
 import com.example.leagueapp.data.database.champion.asDomainObjects
+import com.example.leagueapp.data.database.championWithSpells.ChampionWithSpells
+import com.example.leagueapp.data.database.championWithSpells.ChampionWithSpellsDao
+import com.example.leagueapp.data.database.championdetail.ChampionDetailDao
+import com.example.leagueapp.data.database.championdetail.asDbChampionDetail
+import com.example.leagueapp.data.database.spell.SpellDao
+import com.example.leagueapp.data.database.spell.asDbSpell
 import com.example.leagueapp.model.ChampionDetail
 import com.example.leagueapp.model.ChampionMin
 import com.example.leagueapp.model.Spell
@@ -24,7 +25,7 @@ import java.net.SocketTimeoutException
 interface ChampionRepository {
     fun getChampions(): Flow<List<ChampionMin>>
 
-    fun getChampionDetail(championId: String): Flow<ChampionDetail>
+    fun getChampionDetail(championId: String): Flow<ChampionWithSpells>
 
     suspend fun insertChampion(champion: ChampionMin)
 
@@ -35,9 +36,11 @@ interface ChampionRepository {
     suspend fun refresh()
 
     suspend fun refreshDetails(championId: String)
+
 }
 
-class CachingChampionRepository(private val championDao: ChampionDao, private val championDetailDao: ChampionDetailDao, private val spellDao: SpellDao, private val championApiService: ChampionApiService) : ChampionRepository {
+class CachingChampionRepository(private val championDao: ChampionDao, private val championDetailDao: ChampionDetailDao, private val spellDao: SpellDao,
+                                private val championWithSpellsDao: ChampionWithSpellsDao, val championApiService: ChampionApiService) : ChampionRepository {
 
     override fun getChampions(): Flow<List<ChampionMin>> {
             return championDao.getAllChampions().map {
@@ -49,9 +52,9 @@ class CachingChampionRepository(private val championDao: ChampionDao, private va
             }
     }
 
-    override fun getChampionDetail(championId: String): Flow<ChampionDetail> {
-        return championDetailDao.getChampionDetails(championId).map {
-            it.asDomainObject()
+    override fun getChampionDetail(championId: String): Flow<ChampionWithSpells> {
+        return championWithSpellsDao.getChampionsWithSpells(championId).map {
+            it
         }
     }
 
@@ -73,7 +76,7 @@ class CachingChampionRepository(private val championDao: ChampionDao, private va
             championApiService.getChampionsAsFlow().collect {
                     champions ->
                 for (champion in champions) {
-                    Log.i("TEST", "refresh: $champion")
+                    Log.i("Champion", "ChampionRefresh: $champion")
                     insertChampion(champion.asDomainObject())
                 }
             }
@@ -87,8 +90,12 @@ class CachingChampionRepository(private val championDao: ChampionDao, private va
         try {
             championApiService.getChampionDetailsAsFlow(championId).collect {
                     championDetail ->
-                    Log.i("DetailTest", "refreshDetail: $championDetail")
+                    Log.i("ChampionDetail", "ChampionDetailRefresh: $championDetail")
                     insertChampionDetail(championDetail.asDomainObject())
+                for (spell in championDetail.spells) {
+                    Log.i("Spell", "SpellRefresh: $spell")
+                    insertSpell(spell.asDomainObject(championId))
+                }
             }
         } catch (e: SocketTimeoutException) {
             // log something

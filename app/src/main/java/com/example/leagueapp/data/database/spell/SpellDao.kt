@@ -8,7 +8,4 @@ import androidx.room.OnConflictStrategy
 interface SpellDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(spell: dbSpell)
-
-/*    @Query("SELECT * FROM spells")
-    fun getChampionSpells(championId: String): Flow<List<dbSpell>>*/
 }

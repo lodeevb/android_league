@@ -1,8 +1,12 @@
 package com.example.leagueapp.ui.detailScreen
 
+import com.example.leagueapp.data.database.championWithSpells.ChampionWithSpells
 import com.example.leagueapp.model.ChampionDetail
 
-data class ChampionDetailState(val championDetail: ChampionDetail = ChampionDetail("","","",""))
+data class ChampionDetailState(val championDetail: ChampionWithSpells = ChampionWithSpells(
+    ChampionDetail("","","",""),
+    listOf(),
+    ))
 
 sealed interface DetailScreenState {
 
