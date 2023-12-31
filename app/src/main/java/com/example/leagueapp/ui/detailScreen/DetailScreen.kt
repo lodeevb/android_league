@@ -1,7 +1,9 @@
 package com.example.leagueapp.ui.detailScreen
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,11 +11,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -29,6 +29,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.leagueapp.ui.components.Spells
 import com.example.leagueapp.ui.theme.Beaufort
 
 @Composable
@@ -39,7 +40,8 @@ fun DetailScreen(viewModel : DetailScreenViewModel = viewModel(factory = DetailS
     val detailChampionState by viewModel.detailChampionState.collectAsState()
     val championDetail = detailChampionState.champion.championDetail
     val spells = detailChampionState.champion.spells
-    BackgroundImage(modifier = Modifier.fillMaxSize(), championId)
+
+    BackgroundImage(championId)
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -67,42 +69,46 @@ fun DetailScreen(viewModel : DetailScreenViewModel = viewModel(factory = DetailS
                 fontSize = 62.sp,
                 modifier = Modifier.fillMaxWidth(),
             )
-            Column(
-                modifier = Modifier
-                    .height(200.dp)
-                    .fillMaxWidth()
-                    .verticalScroll(rememberScrollState())
-            ) {
-                Text(
-                    text = championDetail.lore,
-                    textAlign = TextAlign.Justify,
-                    color = Color.White,
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                )
-            }
-            LazyRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-            ) {
-                items(spells) { spell ->
-                    val context = LocalContext.current
-                    val resourceId = context.resources.getIdentifier(spell.id.lowercase(),"drawable",context.packageName)
-                    Image(
-                        painter = painterResource(id = resourceId),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(75.dp)
-                            .fillMaxWidth()
-                    )
-                }
-            }
+            ScrollableLore(championDetail.lore)
+            Spells(spells)
         }
     }
 }
 
 @Composable
-fun BackgroundImage(modifier: Modifier = Modifier, championId: String) {
+fun ScrollableLore(lore: String){
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .verticalScroll(rememberScrollState())
+            .border(
+                BorderStroke(1.dp, Color(0xFF3F454D)),
+                shape = MaterialTheme.shapes.medium
+            )
+            .background(Color.Black.copy(alpha = 0.75f), shape = MaterialTheme.shapes.medium)
+    ) {
+        Column(
+            modifier = Modifier
+                .height(200.dp)
+                .padding(16.dp)
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState())
+        ) {
+            Text(
+                text = lore,
+                textAlign = TextAlign.Justify,
+                color = Color.White,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+            )
+        }
+    }
+
+}
+
+@Composable
+fun BackgroundImage(championId: String) {
     val context = LocalContext.current
     var name = championId.lowercase() + "full"
     val resourceId = context.resources.getIdentifier(name,"drawable",context.packageName)
