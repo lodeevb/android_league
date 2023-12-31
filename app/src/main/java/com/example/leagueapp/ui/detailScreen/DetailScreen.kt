@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -80,13 +81,21 @@ fun DetailScreen(viewModel : DetailScreenViewModel = viewModel(factory = DetailS
                         .fillMaxWidth(),
                 )
             }
-        }
-        LazyRow(
-            modifier = Modifier
-            .fillMaxWidth()
-        ) {
-            items(spells) { spell ->
-                Text(text = spell.id)
+            LazyRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                items(spells) { spell ->
+                    val context = LocalContext.current
+                    val resourceId = context.resources.getIdentifier(spell.id.lowercase(),"drawable",context.packageName)
+                    Image(
+                        painter = painterResource(id = resourceId),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(75.dp)
+                            .fillMaxWidth()
+                    )
+                }
             }
         }
     }
