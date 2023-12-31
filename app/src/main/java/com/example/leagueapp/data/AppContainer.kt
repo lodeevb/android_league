@@ -25,6 +25,7 @@ class DefaultAppContainer(private val context: Context) : AppContainer {
         val championDb = ChampionDb.getDatabase(context = context)
         val championDao = championDb.ChampionDao()
         val championDetailDao = championDb.ChampionDetailDao()
-        CachingChampionRepository(championDao, championDetailDao, retrofitService)
+        val spellDao = championDb.SpellDao()
+        CachingChampionRepository(championDao, championDetailDao, spellDao, retrofitService)
     }
 }

@@ -4,11 +4,18 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.leagueapp.data.database.champion.ChampionDao
+import com.example.leagueapp.data.database.champion.dbChampion
+import com.example.leagueapp.data.database.championdetail.ChampionDetailDao
+import com.example.leagueapp.data.database.championdetail.dbChampionDetail
+import com.example.leagueapp.data.database.spell.SpellDao
+import com.example.leagueapp.data.database.spell.dbSpell
 
-@Database(entities = [dbChampion::class, dbChampionDetail::class], version = 3, exportSchema = false)
+@Database(entities = [dbChampion::class, dbChampionDetail::class, dbSpell::class], version = 4, exportSchema = false)
 abstract class ChampionDb: RoomDatabase() {
     abstract fun ChampionDao(): ChampionDao
     abstract fun ChampionDetailDao(): ChampionDetailDao
+    abstract fun SpellDao(): SpellDao
 
     companion object{
         @Volatile

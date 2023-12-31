@@ -1,6 +1,5 @@
-package com.example.leagueapp.data.database
+package com.example.leagueapp.data.database.championdetail
 
-import android.util.Log
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.leagueapp.model.ChampionDetail
@@ -11,7 +10,8 @@ data class dbChampionDetail(
     val id: String,
     val name: String,
     val title: String,
-    val lore: String
+    val lore: String,
+
 )
 
 fun ChampionDetail.asDbChampionDetail(): dbChampionDetail {
@@ -19,7 +19,7 @@ fun ChampionDetail.asDbChampionDetail(): dbChampionDetail {
         id = this.id,
         name = this.name,
         title = this.title,
-        lore = this.lore
+        lore = this.lore,
     )
 }
 

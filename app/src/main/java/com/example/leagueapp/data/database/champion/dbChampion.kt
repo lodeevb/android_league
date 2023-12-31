@@ -1,4 +1,4 @@
-package com.example.leagueapp.data.database
+package com.example.leagueapp.data.database.champion
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

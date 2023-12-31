@@ -1,14 +1,17 @@
 package com.example.leagueapp.data
 
 import android.util.Log
-import com.example.leagueapp.data.database.ChampionDao
-import com.example.leagueapp.data.database.ChampionDetailDao
-import com.example.leagueapp.data.database.asDbChampion
-import com.example.leagueapp.data.database.asDbChampionDetail
-import com.example.leagueapp.data.database.asDomainObject
-import com.example.leagueapp.data.database.asDomainObjects
+import com.example.leagueapp.data.database.champion.ChampionDao
+import com.example.leagueapp.data.database.championdetail.ChampionDetailDao
+import com.example.leagueapp.data.database.spell.SpellDao
+import com.example.leagueapp.data.database.champion.asDbChampion
+import com.example.leagueapp.data.database.championdetail.asDbChampionDetail
+import com.example.leagueapp.data.database.spell.asDbSpell
+import com.example.leagueapp.data.database.championdetail.asDomainObject
+import com.example.leagueapp.data.database.champion.asDomainObjects
 import com.example.leagueapp.model.ChampionDetail
 import com.example.leagueapp.model.ChampionMin
+import com.example.leagueapp.model.Spell
 import com.example.leagueapp.network.asDomainObject
 import com.example.leagueapp.network.services.ChampionApiService
 import com.example.leagueapp.network.services.getChampionDetailsAsFlow
@@ -27,12 +30,14 @@ interface ChampionRepository {
 
     suspend fun insertChampionDetail(championDetail: ChampionDetail)
 
+    suspend fun insertSpell(spell: Spell)
+
     suspend fun refresh()
 
     suspend fun refreshDetails(championId: String)
 }
 
-class CachingChampionRepository(private val championDao: ChampionDao, private val championDetailDao:  ChampionDetailDao, private val championApiService: ChampionApiService) : ChampionRepository {
+class CachingChampionRepository(private val championDao: ChampionDao, private val championDetailDao: ChampionDetailDao, private val spellDao: SpellDao, private val championApiService: ChampionApiService) : ChampionRepository {
 
     override fun getChampions(): Flow<List<ChampionMin>> {
             return championDao.getAllChampions().map {
@@ -56,6 +61,10 @@ class CachingChampionRepository(private val championDao: ChampionDao, private va
 
     override suspend fun insertChampionDetail(championDetail: ChampionDetail) {
         championDetailDao.insert(championDetail.asDbChampionDetail())
+    }
+
+    override suspend fun insertSpell(spell: Spell) {
+        spellDao.insert(spell.asDbSpell())
     }
 
 
