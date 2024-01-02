@@ -26,9 +26,13 @@ fun BottomBar(
                     Icon(
                         imageVector = icons[index],
                         contentDescription = item,
+                        tint = if (selectedItem == index) Color.Gray else Color.White
                     )
                 },
-                label = { Text(item) },
+                label = { Text(
+                    text = item,
+                    color = Color.White
+                    ) },
                 selected = selectedItem == index,
                 onClick = { onItemSelected(index) },
                 colors = NavigationBarItemDefaults.colors(
