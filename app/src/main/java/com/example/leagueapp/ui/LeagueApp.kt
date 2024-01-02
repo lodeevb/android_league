@@ -5,8 +5,15 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,7 +28,10 @@ import androidx.navigation.navArgument
 import com.example.leagueapp.R
 import com.example.leagueapp.model.ChampionMin
 import com.example.leagueapp.ui.detailScreen.DetailScreen
+import com.example.leagueapp.ui.favorites.FavoriteScreen
 import com.example.leagueapp.ui.homeScreen.HomeScreen
+import com.example.leagueapp.ui.navigation.BottomBar
+import com.example.leagueapp.ui.navigation.Destinations
 
 //Dummy List
 val championList = listOf<ChampionMin>(
@@ -37,7 +47,23 @@ val championList = listOf<ChampionMin>(
 @Composable
 fun LeagueApp(navController: NavHostController = rememberNavController()) {
 
-    Scaffold { innerPadding ->
+    var selectedItem by remember { mutableStateOf(0) }
+    var items = listOf("All", "Favorites")
+    val icons = listOf(Icons.Outlined.Home, Icons.Outlined.FavoriteBorder)
+
+    Scaffold (
+        bottomBar = {
+            BottomBar(
+                items = items,
+                icons = icons,
+                selectedItem = selectedItem,
+                onItemSelected = { index ->
+                    selectedItem = index
+                    navController.navigate(Destinations.values()[index].name)
+                },
+            )
+        },
+    ){ innerPadding ->
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -50,8 +76,8 @@ fun LeagueApp(navController: NavHostController = rememberNavController()) {
 
 @Composable
 fun Navigation(navController: NavHostController, innerPadding: PaddingValues) {
-    NavHost(navController = navController, startDestination = "home") {
-        composable(route = "home") {
+    NavHost(navController = navController, startDestination = "all") {
+        composable(route = "all") {
             HomeScreen(innerPadding = innerPadding, navController = navController)
         }
         composable(
@@ -62,6 +88,9 @@ fun Navigation(navController: NavHostController, innerPadding: PaddingValues) {
             championId?.let {championId ->
                 DetailScreen(championId = championId)
             }
+        }
+        composable(route = "favorites") {
+            FavoriteScreen(innerPadding = innerPadding, navController = navController)
         }
     }
 }

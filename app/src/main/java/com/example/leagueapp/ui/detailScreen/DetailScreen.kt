@@ -82,7 +82,7 @@ fun DetailScreen(viewModel : DetailScreenViewModel = viewModel(factory = DetailS
                 },
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             ) {
-                Text("Favoriet")
+                Text("fav")
             }
         }
     }

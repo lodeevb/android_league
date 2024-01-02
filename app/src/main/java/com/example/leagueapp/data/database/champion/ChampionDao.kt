@@ -15,6 +15,9 @@ interface ChampionDao {
     @Query("SELECT * FROM champions")
     fun getAllChampions(): Flow<List<dbChampion>>
 
+    @Query("SELECT * FROM champions WHERE isFavorite = true")
+    fun getFavoriteChampions(): Flow<List<dbChampion>>
+
     @Query("SELECT * FROM champions WHERE id = :championId")
     suspend fun getChampionById(championId: String): dbChampion
 

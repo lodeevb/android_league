@@ -25,6 +25,8 @@ import java.net.SocketTimeoutException
 interface ChampionRepository {
     fun getChampions(): Flow<List<ChampionMin>>
 
+    fun getFavoriteChampions(): Flow<List<ChampionMin>>
+
     fun getChampionDetail(championId: String): Flow<ChampionWithSpells>
 
     suspend fun changeFavorite(championId: String)
@@ -52,6 +54,12 @@ class CachingChampionRepository(private val championDao: ChampionDao, private va
                     refresh()
                 }
             }
+    }
+
+    override fun getFavoriteChampions(): Flow<List<ChampionMin>> {
+        return championDao.getFavoriteChampions().map {
+            it.asDomainObjects()
+        }
     }
 
     override fun getChampionDetail(championId: String): Flow<ChampionWithSpells> {
