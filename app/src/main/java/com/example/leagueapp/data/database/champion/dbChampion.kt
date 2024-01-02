@@ -13,23 +13,17 @@ data class dbChampion(
     var isFavorite: Boolean = false,
 )
 
-fun dbChampion.asDomainTask(): ChampionMin {
-    return ChampionMin(
-        this.id,
-        this.name,
-    )
-}
-
 fun ChampionMin.asDbChampion(): dbChampion {
     return dbChampion(
         id = this.id,
         name = this.name,
+        isFavorite = this.isFavorite
     )
 }
 
 fun List<dbChampion>.asDomainObjects(): List<ChampionMin> {
     var championList = this.map {
-        ChampionMin(it.id, it.name)
+        ChampionMin(it.id, it.name, it.isFavorite)
     }
     return championList
 }
