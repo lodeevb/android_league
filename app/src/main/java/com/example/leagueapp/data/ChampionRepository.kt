@@ -27,6 +27,8 @@ interface ChampionRepository {
 
     fun getChampionDetail(championId: String): Flow<ChampionWithSpells>
 
+    suspend fun changeFavorite(championId: String)
+
     suspend fun insertChampion(champion: ChampionMin)
 
     suspend fun insertChampionDetail(championDetail: ChampionDetail)
@@ -56,6 +58,14 @@ class CachingChampionRepository(private val championDao: ChampionDao, private va
         return championWithSpellsDao.getChampionsWithSpells(championId).map {
             it
         }
+    }
+
+    override suspend fun changeFavorite(championId: String) {
+        val champion = championDao.getChampionById(championId)
+        champion.apply {
+            isFavorite = !isFavorite
+        }
+        championDao.changeFavorite(champion)
     }
 
     override suspend fun insertChampion(champion: ChampionMin) {

@@ -10,7 +10,7 @@ data class dbChampion(
     @PrimaryKey
     val id: String,
     val name: String,
-    val isFavorite: Boolean = false,
+    var isFavorite: Boolean = false,
 )
 
 fun dbChampion.asDomainTask(): ChampionMin {

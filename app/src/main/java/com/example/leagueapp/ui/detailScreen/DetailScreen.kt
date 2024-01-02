@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -75,6 +76,14 @@ fun DetailScreen(viewModel : DetailScreenViewModel = viewModel(factory = DetailS
             ScrollableLore(championDetail.lore)
             Spacer(modifier = Modifier.height(50.dp))
             Spells(spells)
+            Button(
+                onClick = {
+                    viewModel.updateFavorite(championId)
+                },
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            ) {
+                Text("Favoriet")
+            }
         }
     }
 }

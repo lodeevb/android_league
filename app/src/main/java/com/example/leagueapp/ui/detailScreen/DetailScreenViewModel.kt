@@ -38,6 +38,12 @@ class DetailScreenViewModel(private val championRepository: ChampionRepository) 
         }
     }
 
+    fun updateFavorite(championId: String) {
+        viewModelScope.launch {
+            championRepository.changeFavorite(championId)
+        }
+    }
+
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
