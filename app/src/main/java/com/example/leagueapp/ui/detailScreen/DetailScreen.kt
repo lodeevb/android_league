@@ -7,6 +7,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -45,7 +46,8 @@ fun DetailScreen(viewModel : DetailScreenViewModel = viewModel(factory = DetailS
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(10.dp),
+            .padding(10.dp)
+            .verticalScroll(rememberScrollState()),
         contentAlignment = Alignment.TopCenter
     ) {
         Column(
@@ -59,6 +61,7 @@ fun DetailScreen(viewModel : DetailScreenViewModel = viewModel(factory = DetailS
                 textAlign = TextAlign.Center,
                 color = Color.White,
                 fontFamily = Beaufort,
+                fontSize = 20.sp,
                 modifier = Modifier.fillMaxWidth(),
             )
             Text(
@@ -70,6 +73,7 @@ fun DetailScreen(viewModel : DetailScreenViewModel = viewModel(factory = DetailS
                 modifier = Modifier.fillMaxWidth(),
             )
             ScrollableLore(championDetail.lore)
+            Spacer(modifier = Modifier.height(50.dp))
             Spells(spells)
         }
     }
@@ -80,7 +84,6 @@ fun ScrollableLore(lore: String){
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .verticalScroll(rememberScrollState())
             .border(
                 BorderStroke(1.dp, Color(0xFF3F454D)),
                 shape = MaterialTheme.shapes.medium
