@@ -33,7 +33,7 @@ fun Grid(championList: List<ChampionMin>, navController: NavHostController) {
             content = {
                 items(championList) { champion ->
                     GridItem(champion = champion) {
-                        navController.navigate("champion/${champion.id}")
+                        navController.navigate("champion/${champion.id}?isFavorite=${champion.isFavorite}")
                     }
                 }
             }

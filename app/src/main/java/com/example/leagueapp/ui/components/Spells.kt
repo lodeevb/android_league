@@ -30,13 +30,13 @@ import androidx.compose.ui.unit.dp
 import com.example.leagueapp.data.database.spell.dbSpell
 
 @Composable
-fun Spells(spells: List<dbSpell>) {
+fun Spells(spells: List<dbSpell>, isLandscape: Boolean) {
     var selectedSpell by remember { mutableStateOf<dbSpell?>(null) }
     Box(
         contentAlignment = Alignment.TopCenter,
         modifier = Modifier
+            .padding(start = if (isLandscape) 60.dp else 0.dp, end = if (isLandscape) 60.dp else 0.dp, top = 10.dp)
             .fillMaxSize()
-            .padding(top = 10.dp)
     ) {
         Column {
             LazyRow(

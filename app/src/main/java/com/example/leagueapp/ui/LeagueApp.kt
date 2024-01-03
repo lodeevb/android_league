@@ -82,12 +82,13 @@ fun Navigation(navController: NavHostController, innerPadding: PaddingValues) {
             HomeScreen(innerPadding = innerPadding, navController = navController)
         }
         composable(
-            route="champion/{championid}",
-            arguments = listOf(navArgument("championid") {type = NavType.StringType})
+            route="champion/{championid}?isFavorite={isFavorite}",
+            arguments = listOf(navArgument("championid") {type = NavType.StringType}, navArgument("isFavorite") {type = NavType.BoolType})
         ) { backStackEntry ->
             val championId = backStackEntry.arguments?.getString("championid")
+            val isFavorite = backStackEntry.arguments?.getBoolean("isFavorite")
             championId?.let {championId ->
-                DetailScreen(championId = championId)
+                DetailScreen(championId = championId, isFavorite = isFavorite!!, navController = navController)
             }
         }
         composable(route = "favorites") {
