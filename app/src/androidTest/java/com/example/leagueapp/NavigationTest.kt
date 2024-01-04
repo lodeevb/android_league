@@ -16,7 +16,7 @@ import org.junit.Rule
 import org.junit.Test
 
 class NavigationTest {
-    private val champId: String = "Aatrox"
+    private val champName: String = "Aatrox"
 
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
@@ -34,16 +34,13 @@ class NavigationTest {
 
     @Test
     fun verifyStartDestination() {
-        composeTestRule.runOnUiThread {
-            navController.navigate(Destinations.All.name)
-        }
         composeTestRule
             .onNodeWithText("All")
             .assertIsDisplayed()
     }
 
     @Test
-    fun verifyFavoritesDestionation() {
+    fun verifyFavoritesDestination() {
         composeTestRule.onNodeWithContentDescription(Destinations.Favorites.name)
             .performClick()
 

@@ -27,3 +27,7 @@ fun List<dbChampion>.asDomainObjects(): List<ChampionMin> {
     }
     return championList
 }
+
+fun dbChampion.asDomainObject(): ChampionMin {
+    return ChampionMin(this.id, this.name, this.isFavorite)
+}
