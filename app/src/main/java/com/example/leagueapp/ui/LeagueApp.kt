@@ -20,6 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
@@ -36,6 +37,7 @@ import com.example.leagueapp.ui.favorites.FavoriteScreen
 import com.example.leagueapp.ui.homeScreen.HomeScreen
 import com.example.leagueapp.ui.navigation.BottomBar
 import com.example.leagueapp.ui.navigation.Destinations
+import com.example.leagueapp.ui.navigation.TopBar
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -52,6 +54,18 @@ fun LeagueApp(navController: NavHostController = rememberNavController()) {
     val bottomPadding = if (isLandscape) 0.dp else 75.dp
 
     Scaffold (
+        topBar = {
+            TopBar(
+                modifier = Modifier
+                    .padding(8.dp)
+                    .graphicsLayer(alpha = 0f),
+                title = when (selectedItem) {
+                    0 -> R.string.all
+                    1 -> R.string.favorites
+                    else -> null // No title, will result in no TopAppBar being rendered
+                },
+            )
+        },
         bottomBar = {
             BottomBar(
                 items = items,

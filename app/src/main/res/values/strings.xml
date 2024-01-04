@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">LeagueApp</string>
-    <string name="all">Alle champions</string>
-    <string name="favorites">Favoriete champions</string>
+    <string name="all">all</string>
+    <string name="favorites">favorites</string>
 </resources>
