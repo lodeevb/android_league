@@ -5,6 +5,9 @@
       <entry key="ChampionDaoTest">
         <State />
       </entry>
+      <entry key="ChampionDetailDaoTest">
+        <State />
+      </entry>
       <entry key="DetailScreen">
         <State />
       </entry>

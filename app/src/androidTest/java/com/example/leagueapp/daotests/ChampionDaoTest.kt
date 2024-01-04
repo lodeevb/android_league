@@ -98,5 +98,4 @@ class ChampionDaoTest {
         val champion = championDao.getChampionById(fakeUnfavChampion.id)
         assertTrue(favorite != champion.asDomainObject().isFavorite)
     }
-
 }
