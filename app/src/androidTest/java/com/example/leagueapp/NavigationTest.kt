@@ -4,7 +4,9 @@ import androidx.activity.ComponentActivity
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.testing.TestNavHostController
 import com.example.leagueapp.ui.LeagueApp
@@ -36,7 +38,17 @@ class NavigationTest {
             navController.navigate(Destinations.All.name)
         }
         composeTestRule
-            .onNodeWithText("all")
+            .onNodeWithText("All")
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun verifyFavoritesDestionation() {
+        composeTestRule.onNodeWithContentDescription(Destinations.Favorites.name)
+            .performClick()
+
+        composeTestRule
+            .onNodeWithText("Favorites")
             .assertIsDisplayed()
     }
 }
