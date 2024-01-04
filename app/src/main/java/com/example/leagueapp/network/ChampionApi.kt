@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 data class ChampionApi(
     val id: String,
     val name: String,
-    val isFavorite: Boolean,
+    val isFavorite: Boolean = false,
 )
 
 fun ChampionApi.asDomainObject() : ChampionMin {
