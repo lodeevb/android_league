@@ -7,6 +7,7 @@ import com.example.leagueapp.network.services.getChampionsAsFlow
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -15,8 +16,7 @@ import org.mockito.kotlin.verify
 class ChampionApiServiceTest {
 
     @Test
-    fun getChampionsAsFlow_Success(): runTest {
-
+    fun getChampionsAsFlow_Success() = runTest {
         val mockChampion1 = ChampionApi("Lode", "Lode",true)
         val mockChampion2 = ChampionApi("Henk", "Henk")
 
@@ -39,6 +39,4 @@ class ChampionApiServiceTest {
 
         verify(mockApiService).getChampionData()
     }
-
-
 }
