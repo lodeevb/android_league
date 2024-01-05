@@ -3,6 +3,7 @@ package com.example.leagueapp.ui
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.performClick
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -16,6 +17,7 @@ class FavoriteScreenTest {
         composeTestRule.setContent {
             LeagueApp()
         }
+        composeTestRule.onNodeWithContentDescription("Favorites").performClick()
     }
 
     @Test
@@ -23,10 +25,5 @@ class FavoriteScreenTest {
         composeTestRule.onNodeWithContentDescription("All").assertIsDisplayed()
         composeTestRule.onNodeWithContentDescription("Favorites").assertIsDisplayed()
     }
-
-/*    @Test
-    fun favoriteScreen_FavoriteChampionsDisplayed(){
-        composeTestRule.onNodeWithContentDescription("Aatrox").assertIsDisplayed()
-        composeTestRule.onNodeWithContentDescription("Jhin").assertIsDisplayed()
-    }*/
+    
 }

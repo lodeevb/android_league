@@ -40,7 +40,6 @@ class HomeScreenTest {
         composeTestRule.onNodeWithContentDescription("Aatrox")
             .performClick()
 
-        // Custom wait mechanism
         var isNodeDisplayed = false
         var attempt = 0
         val maxAttempts = 5
