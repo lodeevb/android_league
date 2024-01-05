@@ -85,7 +85,9 @@ fun DetailScreen(viewModel : DetailScreenViewModel = viewModel(factory = DetailS
                 .fillMaxSize()
                 .padding(start = 20.dp, end = 20.dp)
                 .verticalScroll(rememberScrollState()),
-            contentAlignment = Alignment.TopCenter
+            contentAlignment = Alignment.TopCenter,
+
+
         ) {
             Column(
                 modifier = Modifier

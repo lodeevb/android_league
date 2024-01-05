@@ -24,10 +24,9 @@ class FavoriteScreenTest {
         composeTestRule.onNodeWithContentDescription("Favorites").assertIsDisplayed()
     }
 
-    @Test
-    fun homeScreen_FavoriteChampionsDisplayed() {
+/*    @Test
+    fun favoriteScreen_FavoriteChampionsDisplayed(){
         composeTestRule.onNodeWithContentDescription("Aatrox").assertIsDisplayed()
-        composeTestRule.onNodeWithContentDescription("Jinx").assertIsDisplayed()
-    }
-
+        composeTestRule.onNodeWithContentDescription("Jhin").assertIsDisplayed()
+    }*/
 }

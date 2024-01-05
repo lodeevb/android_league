@@ -73,7 +73,7 @@ fun LeagueApp(navController: NavHostController = rememberNavController()) {
                 selectedItem = selectedItem,
                 onItemSelected = { index ->
                     selectedItem = index
-                    navController.navigate(Destinations.values()[index].name)
+                    navController.navigate(Destinations.entries[index].name)
                 },
             )
         },
