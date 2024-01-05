@@ -18,7 +18,7 @@ class ChampionApiServiceTest {
     @Test
     fun getChampionsAsFlow_Success() = runTest {
         val mockChampion1 = ChampionApi("Lode", "Lode",true)
-        val mockChampion2 = ChampionApi("Henk", "Henk")
+        val mockChampion2 = ChampionApi("Henk", "Henk", false)
 
         val championData = ChampionData(
             mapOf(

@@ -19,7 +19,7 @@ interface ChampionDao {
     fun getFavoriteChampions(): Flow<List<dbChampion>>
 
     @Query("SELECT * FROM champions WHERE id = :championId")
-    fun getChampionById(championId: String): dbChampion
+    suspend fun getChampionById(championId: String): dbChampion
 
     @Update
     suspend fun changeFavorite(champion: dbChampion)

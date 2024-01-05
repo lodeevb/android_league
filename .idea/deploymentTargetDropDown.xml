@@ -2,16 +2,16 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="ChampionDetailWithSpellsDaoTest">
+      <entry key="HomeScreenTest">
         <State />
       </entry>
       <entry key="NavigationTest">
         <State />
       </entry>
-      <entry key="NavigationTest (1)">
+      <entry key="Tests in 'com.example.leagueapp'">
         <State />
       </entry>
-      <entry key="Tests in 'com.example.leagueapp'">
+      <entry key="Tests in 'com.example.leagueapp.ui'">
         <State />
       </entry>
       <entry key="app">

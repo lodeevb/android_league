@@ -173,7 +173,7 @@ fun ScrollableLore(lore: String, isLandscape: Boolean){
 @Composable
 fun BackgroundImage(championId: String) {
     val context = LocalContext.current
-    var name = championId.lowercase() + "full"
+    val name = championId.lowercase() + "full"
     val resourceId = context.resources.getIdentifier(name,"drawable",context.packageName)
     Image(
         painter = painterResource(id = resourceId),
