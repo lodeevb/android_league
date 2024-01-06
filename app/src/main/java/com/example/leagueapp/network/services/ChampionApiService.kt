@@ -37,6 +37,6 @@ fun ChampionApiService.getChampionDetailsAsFlow(championId: String): Flow<Champi
         emit(champDetails)
     }
     catch(e: Exception){
-        Log.e("API", "getChampionDetailsAsFlow: "+e.stackTraceToString(), )
+        Log.e("API", "getChampionDetailsAsFlow: " +e.stackTraceToString(), )
     }
 }

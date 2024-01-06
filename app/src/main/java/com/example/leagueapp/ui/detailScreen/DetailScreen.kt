@@ -78,7 +78,6 @@ fun DetailScreen(viewModel : DetailScreenViewModel = viewModel(factory = DetailS
                     tint = Color.White,
                     modifier = Modifier.fillMaxSize()
                 )
-
         }
         Box(
             modifier = Modifier
