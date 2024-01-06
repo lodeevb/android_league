@@ -5,7 +5,6 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,14 +13,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -61,34 +56,16 @@ fun DetailScreen(viewModel : DetailScreenViewModel = viewModel(factory = DetailS
     val spells = detailChampionState.champion.spells
 
     var favoriteBool by remember { mutableStateOf(isFavorite) }
-
     Box(
         modifier = Modifier.fillMaxSize()
     ){
         BackgroundImage(championId)
         Box(
             modifier = Modifier
-                .padding(8.dp)
-                .size(30.dp)
-                .clickable {
-                    navController.navigateUp()
-                }
-        ) {
-                Icon(
-                    imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "Back",
-                    tint = Color.White,
-                    modifier = Modifier.fillMaxSize()
-                )
-        }
-        Box(
-            modifier = Modifier
                 .fillMaxSize()
                 .padding(start = 20.dp, end = 20.dp)
                 .verticalScroll(rememberScrollState()),
             contentAlignment = Alignment.TopCenter,
-
-
         ) {
             Column(
                 modifier = Modifier
@@ -104,14 +81,17 @@ fun DetailScreen(viewModel : DetailScreenViewModel = viewModel(factory = DetailS
                     fontSize = 20.sp,
                     modifier = Modifier.fillMaxWidth(),
                 )
+                Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = championDetail.name.uppercase(),
                     textAlign = TextAlign.Center,
+                    maxLines = 5,
                     color = Color.White,
                     fontFamily = Beaufort,
                     fontSize = 62.sp,
                     modifier = Modifier.fillMaxWidth(),
                 )
+                Spacer(modifier = Modifier.height(8.dp))
                 ScrollableLore(championDetail.lore, isLandscape)
                 Spacer(modifier = Modifier.height(50.dp))
                 Spells(spells, isLandscape)
@@ -125,7 +105,8 @@ fun DetailScreen(viewModel : DetailScreenViewModel = viewModel(factory = DetailS
                         .padding(top = 25.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color.Black.copy(alpha = 0.75f),
-                    )
+                    ),
+                    border = BorderStroke(1.dp, Color.White),
                 ) {
                     Text(
                         text = if (favoriteBool == true) {
