@@ -10,30 +10,31 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.leagueapp.LeagueApplication
 import com.example.leagueapp.data.ChampionRepository
+import com.example.leagueapp.data.database.championWithSpells.ChampionWithSpells
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import java.io.IOException
 
 class DetailScreenViewModel(private val championRepository: ChampionRepository) : ViewModel() {
 
     var detailScreenState: DetailScreenState by mutableStateOf(DetailScreenState.Loading)
         private set
 
-    private val _detailChampionState = MutableStateFlow(ChampionDetailState(/* Initial value */))
+    private val _detailChampionState = MutableStateFlow(ChampionDetailState())
     val detailChampionState: StateFlow<ChampionDetailState> = _detailChampionState
 
     fun fetchChampionDetails(championId: String) {
         try {
+            var championDetail: ChampionWithSpells? = null
             viewModelScope.launch {
                 championRepository.refreshDetails(championId)
-                val championDetail = championRepository.getChampionDetail(championId).first()
-                _detailChampionState.value = ChampionDetailState(championDetail)
-                detailScreenState = DetailScreenState.Success
+                championDetail = championRepository.getChampionDetail(championId).first()
+                _detailChampionState.value = ChampionDetailState(championDetail!!) // Check to send excpetion
             }
+            detailScreenState = DetailScreenState.Success
         }
-        catch (e: IOException) {
+        catch (e: Exception) {
             detailScreenState = DetailScreenState.Error
         }
     }

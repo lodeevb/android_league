@@ -51,76 +51,82 @@ fun DetailScreen(viewModel : DetailScreenViewModel = viewModel(factory = DetailS
     LaunchedEffect(Unit) {
         viewModel.fetchChampionDetails(championId)
     }
-    val detailChampionState by viewModel.detailChampionState.collectAsState()
-    val championDetail = detailChampionState.champion.championDetail
-    val spells = detailChampionState.champion.spells
 
-    var favoriteBool by remember { mutableStateOf(isFavorite) }
-    Box(
-        modifier = Modifier.fillMaxSize()
-    ){
-        BackgroundImage(championId)
+    val detailScreenState by remember { mutableStateOf(viewModel.detailScreenState) }
+
+    if (detailScreenState is DetailScreenState.Error) {
+        Text("HALLO")
+    }
+    else {
+        val detailChampionState by viewModel.detailChampionState.collectAsState()
+        val championDetail = detailChampionState.champion.championDetail
+        val spells = detailChampionState.champion.spells
+
+        var favoriteBool by remember { mutableStateOf(isFavorite) }
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(start = 20.dp, end = 20.dp)
-                .verticalScroll(rememberScrollState()),
-            contentAlignment = Alignment.TopCenter,
-        ) {
-            Column(
+            modifier = Modifier.fillMaxSize()
+        ){
+            BackgroundImage(championId)
+            Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 50.dp),
-                verticalArrangement = Arrangement.Top
-            ){
-                Text(
-                    text = championDetail.title.uppercase(),
-                    textAlign = TextAlign.Center,
-                    color = Color.White,
-                    fontFamily = Beaufort,
-                    fontSize = 20.sp,
-                    modifier = Modifier.fillMaxWidth(),
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = championDetail.name.uppercase(),
-                    textAlign = TextAlign.Center,
-                    maxLines = 5,
-                    color = Color.White,
-                    fontFamily = Beaufort,
-                    fontSize = 62.sp,
-                    modifier = Modifier.fillMaxWidth(),
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                ScrollableLore(championDetail.lore, isLandscape)
-                Spacer(modifier = Modifier.height(50.dp))
-                Spells(spells, isLandscape)
-                Button(
-                    onClick = {
-                        viewModel.updateFavorite(championId)
-                        favoriteBool = !favoriteBool
-                    },
+                    .fillMaxSize()
+                    .padding(start = 20.dp, end = 20.dp)
+                    .verticalScroll(rememberScrollState()),
+                contentAlignment = Alignment.TopCenter,
+            ) {
+                Column(
                     modifier = Modifier
-                        .align(Alignment.CenterHorizontally)
-                        .padding(top = 25.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.Black.copy(alpha = 0.75f),
-                    ),
-                    border = BorderStroke(1.dp, Color.White),
-                ) {
+                        .fillMaxWidth()
+                        .padding(top = 50.dp),
+                    verticalArrangement = Arrangement.Top
+                ){
                     Text(
-                        text = if (favoriteBool == true) {
-                            "Verwijder uit favorieten"
-                        } else {
-                            "Voeg toe aan favorieten"
-                        }
+                        text = championDetail.title.uppercase(),
+                        textAlign = TextAlign.Center,
+                        color = Color.White,
+                        fontFamily = Beaufort,
+                        fontSize = 20.sp,
+                        modifier = Modifier.fillMaxWidth(),
                     )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = championDetail.name.uppercase(),
+                        textAlign = TextAlign.Center,
+                        maxLines = 5,
+                        color = Color.White,
+                        fontFamily = Beaufort,
+                        fontSize = 62.sp,
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    ScrollableLore(championDetail.lore, isLandscape)
+                    Spacer(modifier = Modifier.height(50.dp))
+                    Spells(spells, isLandscape)
+                    Button(
+                        onClick = {
+                            viewModel.updateFavorite(championId)
+                            favoriteBool = !favoriteBool
+                        },
+                        modifier = Modifier
+                            .align(Alignment.CenterHorizontally)
+                            .padding(top = 25.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color.Black.copy(alpha = 0.75f),
+                        ),
+                        border = BorderStroke(1.dp, Color.White),
+                    ) {
+                        Text(
+                            text = if (favoriteBool) {
+                                "Verwijder uit favorieten"
+                            } else {
+                                "Voeg toe aan favorieten"
+                            }
+                        )
+                    }
                 }
             }
         }
     }
-
-
 }
 
 @Composable
