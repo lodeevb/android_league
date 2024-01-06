@@ -24,7 +24,7 @@ fun SpellInfo(spell: dbSpell) {
     Box (
         modifier = Modifier
             .border(
-                BorderStroke(1.dp, Color(0xFF3F454D)),
+                BorderStroke(1.dp, Color.White),
                 shape = MaterialTheme.shapes.medium
             )
             .background(Color.Black.copy(alpha = 0.75f), shape = MaterialTheme.shapes.medium)

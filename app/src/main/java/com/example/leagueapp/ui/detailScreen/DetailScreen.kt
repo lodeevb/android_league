@@ -20,6 +20,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -66,7 +67,8 @@ fun DetailScreen(viewModel : DetailScreenViewModel = viewModel(factory = DetailS
     ){
         BackgroundImage(championId)
         Box(
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier
+                .padding(8.dp)
                 .size(30.dp)
                 .clickable {
                     navController.navigateUp()
@@ -120,7 +122,10 @@ fun DetailScreen(viewModel : DetailScreenViewModel = viewModel(factory = DetailS
                     },
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
-                        .padding(top = 25.dp)
+                        .padding(top = 25.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Black.copy(alpha = 0.75f),
+                    )
                 ) {
                     Text(
                         text = if (favoriteBool == true) {
@@ -147,7 +152,7 @@ fun ScrollableLore(lore: String, isLandscape: Boolean){
             )
             .fillMaxWidth()
             .border(
-                BorderStroke(1.dp, Color(0xFF3F454D)),
+                BorderStroke(1.dp, Color.White),
                 shape = MaterialTheme.shapes.medium
             )
             .background(Color.Black.copy(alpha = 0.75f), shape = MaterialTheme.shapes.medium)
