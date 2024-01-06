@@ -57,7 +57,7 @@ fun Spells(spells: List<dbSpell>, isLandscape: Boolean) {
                     ) {
                         Image(
                             painter = painterResource(id = resourceId),
-                            contentDescription = null,
+                            contentDescription = spell.id,
                             modifier = Modifier
                                 .fillMaxWidth(),
                             contentScale = ContentScale.Crop
