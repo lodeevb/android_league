@@ -8,6 +8,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 
+/**
+ * Composable function representing the top app bar which is hidden.
+ *
+ * @param modifier Modifier to be applied to the [TopBar].
+ * @param title Optional title resource ID for the app bar.
+ */
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun TopBar(

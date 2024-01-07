@@ -20,6 +20,14 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 
+/**
+ * Composable function representing the bottom navigation bar of the app.
+ *
+ * @param items List of strings representing the names of [items][Destinations] in the bottom bar.
+ * @param icons List of [ImageVector]s representing icons for the [items][Destinations].
+ * @param selectedItem The index of the currently selected [item][Destinations].
+ * @param onItemSelected Callback invoked when an item is selected.
+ */
 @Composable
 fun BottomBar(
     items: List<String>,
