@@ -4,6 +4,15 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.leagueapp.model.Spell
 
+/**
+ * Represents the 'spells' table in the local database.
+ *
+ *  @property championId Champion identifier for the spells.
+ *  @property id Unique identifier for the spell.
+ *  @property name Name of the spell.
+ *  @property description Description of the spell.
+ *
+ */
 @Entity(tableName = "spells")
 data class dbSpell(
     val championId: String,
@@ -13,6 +22,11 @@ data class dbSpell(
     val description: String,
 )
 
+/**
+ * Maps a [Spell] object to its corresponding [dbSpell] entity for database operations.
+ *
+ * @return Converted [Spell] object to [dbSpell]
+ */
 fun Spell.asDbSpell(): dbSpell {
     return dbSpell(
         championId = this.championId,
