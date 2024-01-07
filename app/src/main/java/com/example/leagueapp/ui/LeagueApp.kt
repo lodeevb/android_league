@@ -1,7 +1,6 @@
 package com.example.leagueapp.ui
 
 import android.content.res.Configuration
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -39,7 +38,11 @@ import com.example.leagueapp.ui.navigation.BottomBar
 import com.example.leagueapp.ui.navigation.Destinations
 import com.example.leagueapp.ui.navigation.TopBar
 
-@OptIn(ExperimentalFoundationApi::class)
+/**
+ * Composable function representing the main UI for the LeagueApp.
+ *
+ * @param navController The [navigation controller][NavHostController] for handling navigation within the app.
+ */
 @Composable
 fun LeagueApp(navController: NavHostController = rememberNavController()) {
 
@@ -83,12 +86,18 @@ fun LeagueApp(navController: NavHostController = rememberNavController()) {
                 .fillMaxSize()
                 .padding(start = startPadding, bottom = bottomPadding)
         ) {
-            BackgroundImage(modifier = Modifier.fillMaxSize())
+            BackgroundImage()
             Navigation(navController = navController, innerPadding = innerPadding)
         }
     }
 }
 
+/**
+ * Composable function responsible for navigation handling using [NavHost].
+ *
+ * @param navController The [navigation controller][NavHostController] for handling navigation within the app.
+ * @param innerPadding The padding applied to the inner content.
+ */
 @Composable
 fun Navigation(navController: NavHostController, innerPadding: PaddingValues) {
     NavHost(navController = navController, startDestination = "all") {
@@ -111,8 +120,11 @@ fun Navigation(navController: NavHostController, innerPadding: PaddingValues) {
     }
 }
 
+/**
+ * Composable function responsible for displaying the [background image][Image] with a semi-transparent overlay.
+ */
 @Composable
-fun BackgroundImage(modifier: Modifier = Modifier) {
+fun BackgroundImage() {
     val backgroundImage = R.drawable.background
     Image(
         painter = painterResource(id = backgroundImage),
