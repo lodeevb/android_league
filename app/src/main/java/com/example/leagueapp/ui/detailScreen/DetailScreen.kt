@@ -8,15 +8,21 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -52,10 +58,10 @@ fun DetailScreen(viewModel : DetailScreenViewModel = viewModel(factory = DetailS
         viewModel.fetchChampionDetails(championId)
     }
 
-    val detailScreenState by remember { mutableStateOf(viewModel.detailScreenState) }
+    val detailScreenState = viewModel.detailScreenState
 
     if (detailScreenState is DetailScreenState.Error) {
-        Text("HALLO")
+        NoInternet(navController)
     }
     else {
         val detailChampionState by viewModel.detailChampionState.collectAsState()
@@ -117,9 +123,9 @@ fun DetailScreen(viewModel : DetailScreenViewModel = viewModel(factory = DetailS
                     ) {
                         Text(
                             text = if (favoriteBool) {
-                                "Verwijder uit favorieten"
+                                "Remove from favorites."
                             } else {
-                                "Voeg toe aan favorieten"
+                                "Add to favorites."
                             }
                         )
                     }
@@ -180,4 +186,56 @@ fun BackgroundImage(championId: String) {
             .fillMaxSize()
             .background(Color.Black.copy(alpha = 0.5f))
     )
+}
+
+@Composable
+fun NoInternet(navController: NavHostController) {
+    Box(
+        modifier = Modifier.fillMaxHeight(),
+        contentAlignment = Alignment.Center
+    ) {
+        Column (
+            modifier = Modifier.fillMaxHeight(),
+            verticalArrangement = Arrangement.Center
+        ){
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(150.dp)
+                    .padding(start = 25.dp, bottom = 0.dp, end = 25.dp)
+                    .border(
+                        BorderStroke(1.dp, Color(0xFF3F454D)),
+                        shape = MaterialTheme.shapes.medium
+                    )
+                    .background(
+                        Color.Black.copy(alpha = 0.75f),
+                        shape = MaterialTheme.shapes.medium
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "Oops! Seems like the champion won't show himself for the first time without being connected to the internet.",
+                    color = Color.White,
+                    fontSize = 18.sp,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(8.dp)
+                )
+            }
+            Row (
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                IconButton(
+                    onClick = { navController.popBackStack() },
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "Back",
+                        tint = Color.White
+                    )
+                }
+            }
+
+        }
+    }
 }

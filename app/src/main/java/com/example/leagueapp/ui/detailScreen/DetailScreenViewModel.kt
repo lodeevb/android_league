@@ -25,18 +25,18 @@ class DetailScreenViewModel(private val championRepository: ChampionRepository) 
     val detailChampionState: StateFlow<ChampionDetailState> = _detailChampionState
 
     fun fetchChampionDetails(championId: String) {
-        try {
             var championDetail: ChampionWithSpells? = null
             viewModelScope.launch {
-                championRepository.refreshDetails(championId)
-                championDetail = championRepository.getChampionDetail(championId).first()
-                _detailChampionState.value = ChampionDetailState(championDetail!!) // Check to send excpetion
+                try {
+                    championRepository.refreshDetails(championId)
+                    championDetail = championRepository.getChampionDetail(championId).first()
+                    _detailChampionState.value = ChampionDetailState(championDetail!!)
+                    detailScreenState = DetailScreenState.Success
+                }
+                catch (e: Exception) {
+                    detailScreenState = DetailScreenState.Error
+                }
             }
-            detailScreenState = DetailScreenState.Success
-        }
-        catch (e: Exception) {
-            detailScreenState = DetailScreenState.Error
-        }
     }
 
     fun updateFavorite(championId: String) {

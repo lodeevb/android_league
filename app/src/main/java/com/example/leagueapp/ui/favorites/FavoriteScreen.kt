@@ -69,7 +69,7 @@ fun FavoriteScreen(innerPadding: PaddingValues, navController: NavHostController
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "Je hebt nog geen favoriete champions.",
+                        text = "You don't any have favorite champions yet.",
                         color = Color.White,
                         fontSize = 18.sp,
                         textAlign = TextAlign.Center,

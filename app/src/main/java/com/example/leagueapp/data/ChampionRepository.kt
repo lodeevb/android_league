@@ -73,6 +73,11 @@ class CachingChampionRepository(private val championDao: ChampionDao, private va
         champion.apply {
             isFavorite = !isFavorite
         }
+/*
+        if (champion.isFavorite) {
+            refreshDetails(championId)
+        }*/
+
         championDao.changeFavorite(champion)
     }
 

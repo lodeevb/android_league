@@ -14,4 +14,6 @@ interface ChampionDetailDao {
     @Query("SELECT * FROM championDetails WHERE id = :championId")
     fun getChampionDetails(championId: String): Flow<dbChampionDetail>
 
+
+
 }
