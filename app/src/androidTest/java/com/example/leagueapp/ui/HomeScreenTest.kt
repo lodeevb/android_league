@@ -54,7 +54,6 @@ class HomeScreenTest {
                 attempt++
             }
         }
-
         assertTrue(isNodeDisplayed)
     }
 }

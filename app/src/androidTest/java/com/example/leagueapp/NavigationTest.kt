@@ -48,4 +48,32 @@ class NavigationTest {
             .onNodeWithText("Favorites")
             .assertIsDisplayed()
     }
+
+    @Test
+    fun verifyDetailScreen() {
+        composeTestRule.onNodeWithContentDescription("Aatrox")
+            .performClick()
+
+        var isNodeDisplayed = false
+        var attempt = 0
+        val maxAttempts = 5
+        val delayMillis = 500
+
+        while (!isNodeDisplayed && attempt < maxAttempts) {
+            try {
+                composeTestRule.onNodeWithText("THE DARKIN BLADE").assertIsDisplayed()
+                isNodeDisplayed = true
+            } catch (e: Throwable) {
+                Thread.sleep(delayMillis.toLong())
+                attempt++
+            }
+        }
+
+        composeTestRule.onNodeWithContentDescription("Back")
+            .performClick()
+
+        composeTestRule
+            .onNodeWithText("All")
+            .assertIsDisplayed()
+    }
 }

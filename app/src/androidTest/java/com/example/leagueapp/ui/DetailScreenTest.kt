@@ -29,7 +29,6 @@ class DetailScreenTest {
 
     @Test
     fun detailScreen_ShowSpellInfo() {
-
         composeTestRule.onNodeWithContentDescription("AatroxQ")
             .performClick()
 

@@ -8,9 +8,12 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
+
 class FavoriteScreenTest {
     @get:Rule
     val composeTestRule = createComposeRule()
+
+
 
     @Before
     fun init(){

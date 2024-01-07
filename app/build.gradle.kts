@@ -85,6 +85,7 @@ dependencies {
     implementation("androidx.glance:glance-appwidget:1.0.0")
     implementation("androidx.navigation:navigation-testing:2.7.6")
     testImplementation("junit:junit:4.13.2")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
     testImplementation("org.mockito:mockito-core:3.12.4")
     testImplementation("org.mockito.kotlin:mockito-kotlin:3.2.0")
     testImplementation("io.mockk:mockk:1.13.8")
