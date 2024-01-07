@@ -122,7 +122,7 @@ fun DetailScreen(viewModel : DetailScreenViewModel = viewModel(factory = DetailS
                         maxLines = 5,
                         color = Color.White,
                         fontFamily = Beaufort,
-                        fontSize = 62.sp,
+                        fontSize = 50.sp,
                         modifier = Modifier.fillMaxWidth(),
                     )
                     Spacer(modifier = Modifier.height(8.dp))
