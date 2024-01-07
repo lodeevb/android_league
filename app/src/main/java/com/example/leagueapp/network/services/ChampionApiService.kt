@@ -10,15 +10,35 @@ import kotlinx.coroutines.flow.flow
 import retrofit2.http.GET
 import retrofit2.http.Path
 
+/**
+ * Service interface defining endpoints related to champion data retrieval from the API.
+ */
 interface ChampionApiService {
+
+    /**
+     * Retrieves the overall champion data from the API.
+     *
+     * @return [ChampionData] object representing overall champion data.
+     */
     @GET("cdn/13.24.1/data/en_US/champion.json")
     suspend fun getChampionData(): ChampionData
 
+    /**
+     * Retrieves specific details of a champion based on the provided championId.
+     *
+     * @param championId ID of the champion to fetch details for.
+     * @return [ChampionDetailData] object representing detailed information about the champion.
+     */
     @GET("cdn/13.24.1/data/en_US/champion/{championId}.json")
     suspend fun getChampionDetails(@Path("championId") championId: String): ChampionDetailData
 
 }
 
+/**
+ * Extension function to fetch the list of champions as a Flow of [ChampionApi].
+ *
+ * @return A Flow emitting a list of [ChampionApi] objects representing champion data.
+ */
 fun ChampionApiService.getChampionsAsFlow(): Flow<List<ChampionApi>> = flow {
     try {
         val championData = getChampionData()
@@ -30,6 +50,12 @@ fun ChampionApiService.getChampionsAsFlow(): Flow<List<ChampionApi>> = flow {
     }
 }
 
+/**
+ * Extension function to fetch champion details as a Flow of [ChampionDetailApi].
+ *
+ * @param championId ID of the champion to fetch details for.
+ * @return A Flow emitting [ChampionDetailApi] object representing detailed information about the champion.
+ */
 fun ChampionApiService.getChampionDetailsAsFlow(championId: String): Flow<ChampionDetailApi> = flow {
     try {
         val championDetails = getChampionDetails(championId)
