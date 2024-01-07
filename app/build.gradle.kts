@@ -2,6 +2,15 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.kapt")
+    id("org.jetbrains.dokka")
+}
+
+tasks.dokkaHtml {
+    outputDirectory.set(buildDir.resolve("../documentation/html"))
+}
+
+tasks.dokkaGfm {
+    outputDirectory.set(buildDir.resolve("../documentation/markdown"))
 }
 
 android {
@@ -51,6 +60,7 @@ android {
 }
 
 dependencies {
+    dokkaPlugin("org.jetbrains.dokka:android-documentation-plugin:1.9.10")
     implementation("androidx.navigation:navigation-compose:2.7.6")
     implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
