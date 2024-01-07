@@ -29,6 +29,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.leagueapp.data.database.spell.dbSpell
 
+/**
+ * Composable function displaying a list of spells in a horizontal scrollable row.
+ *
+ * @param spells The list of [spells][dbSpell] to display.
+ * @param isLandscape Boolean indicating landscape mode.
+ */
 @Composable
 fun Spells(spells: List<dbSpell>, isLandscape: Boolean) {
     var selectedSpell by remember { mutableStateOf<dbSpell?>(null) }

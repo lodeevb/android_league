@@ -15,6 +15,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.leagueapp.model.ChampionMin
 
+/**
+ * Composable function representing a grid of champions.
+ *
+ * @param championList The list of [champions][ChampionMin] to display in the grid.
+ * @param navController [NavHostController] used for navigation.
+ */
 @Composable
 fun Grid(championList: List<ChampionMin>, navController: NavHostController) {
 

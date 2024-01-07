@@ -19,6 +19,11 @@ import androidx.compose.ui.unit.sp
 import com.example.leagueapp.data.database.spell.dbSpell
 import com.example.leagueapp.ui.theme.Beaufort
 
+/**
+ * Composable function displaying a box containing spell information.
+ *
+ * @param spell The [spell][dbSpell] details to display.
+ */
 @Composable
 fun SpellInfo(spell: dbSpell) {
     Box (

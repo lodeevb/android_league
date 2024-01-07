@@ -20,6 +20,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.leagueapp.model.ChampionMin
 
+/**
+ * Composable function representing an item within the champion grid.
+ *
+ * @param champion The [champion][ChampionMin] to display in the grid item.
+ * @param onItemClick Callback invoked when the grid item is clicked.
+ */
 @Composable
 fun GridItem(champion: ChampionMin, onItemClick: () -> Unit){
     val context = LocalContext.current
