@@ -86,14 +86,27 @@ fun DetailScreen(viewModel : DetailScreenViewModel = viewModel(factory = DetailS
                         .padding(top = 50.dp),
                     verticalArrangement = Arrangement.Top
                 ){
-                    Text(
-                        text = championDetail.title.uppercase(),
-                        textAlign = TextAlign.Center,
-                        color = Color.White,
-                        fontFamily = Beaufort,
-                        fontSize = 20.sp,
-                        modifier = Modifier.fillMaxWidth(),
-                    )
+                    Row(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        IconButton(
+                            onClick = { navController.popBackStack() },
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.ArrowBack,
+                                contentDescription = "Back",
+                                tint = Color.White
+                            )
+                        }
+                        Text(
+                            text = championDetail.title.uppercase(),
+                            textAlign = TextAlign.Center,
+                            color = Color.White,
+                            fontFamily = Beaufort,
+                            fontSize = 20.sp,
+                            modifier = Modifier.fillMaxWidth(),
+                        )
+                    }
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
                         text = championDetail.name.uppercase(),
