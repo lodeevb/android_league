@@ -32,6 +32,13 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.leagueapp.ui.components.Grid
 
+/**
+ * Composable function representing the FavoriteScreen UI.
+ *
+ * @param innerPadding Padding values for the inner content.
+ * @param viewModel [FavoriteScreenViewModel] to manage data for the FavoriteScreen.
+ * @param navController [NavHostController] used for navigation.
+ */
 @Composable
 fun FavoriteScreen(innerPadding: PaddingValues, navController: NavHostController, viewModel : FavoriteScreenViewModel = viewModel(factory = FavoriteScreenViewModel.Factory)) {
 

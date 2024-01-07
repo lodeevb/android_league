@@ -15,20 +15,29 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
+/**
+ * ViewModel class responsible for managing data for the [HomeScreen].
+ *
+ * @property championRepository The [repository][ChampionRepository] for retrieving champion data.
+ */
 class HomeScreenViewModel(private val championRepository: ChampionRepository) : ViewModel() {
 
+    /** The state of the HomeScreen. */
     var homeScreenState: HomeScreenState by mutableStateOf(HomeScreenState.Loading)
         private set
 
+    /** StateFlow representing the list of champions. */
     lateinit var championListState: StateFlow<ChampionListState>
 
     init {
         getRepoChampions()
     }
 
+    /**
+     * Retrieves champion data from the repository and updates the state.
+     */
     private fun getRepoChampions() {
         try {
-//            viewModelScope.launch { championRepository.refresh() }
             championListState = championRepository.getChampions().map {
                 ChampionListState(it)
             }.stateIn(
@@ -42,6 +51,9 @@ class HomeScreenViewModel(private val championRepository: ChampionRepository) : 
         }
     }
 
+    /**
+     * Companion object providing a [ViewModelProvider.Factory] for creating instances of [HomeScreenViewModel].
+     */
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {

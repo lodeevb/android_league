@@ -47,6 +47,14 @@ import androidx.navigation.NavHostController
 import com.example.leagueapp.ui.components.Spells
 import com.example.leagueapp.ui.theme.Beaufort
 
+/**
+ * Composable function representing the detail screen for a specific champion.
+ *
+ * @param championId The ID of the champion to display details for.
+ * @param isFavorite A flag indicating if the champion is marked as favorite.
+ * @param viewModel [DetailScreenViewModel] to manage data for the DetailScreen.
+ * @param navController [NavHostController] used for navigation.
+ */
 @Composable
 fun DetailScreen(viewModel : DetailScreenViewModel = viewModel(factory = DetailScreenViewModel.Factory),  championId: String, isFavorite: Boolean,
                  navController: NavHostController
@@ -148,6 +156,12 @@ fun DetailScreen(viewModel : DetailScreenViewModel = viewModel(factory = DetailS
     }
 }
 
+/**
+ * Composable function for displaying scrollable lore text.
+ *
+ * @param lore The lore text to display.
+ * @param isLandscape Boolean indicating landscape mode.
+ */
 @Composable
 fun ScrollableLore(lore: String, isLandscape: Boolean){
     Box(
@@ -182,6 +196,11 @@ fun ScrollableLore(lore: String, isLandscape: Boolean){
     }
 }
 
+/**
+ * Composable function for displaying the background image for a champion.
+ *
+ * @param championId The ID of the champion to display the background image for.
+ */
 @Composable
 fun BackgroundImage(championId: String) {
     val context = LocalContext.current
@@ -201,6 +220,11 @@ fun BackgroundImage(championId: String) {
     )
 }
 
+/**
+ * Composable function displaying a no-internet message.
+ *
+ * @param navController [NavHostController] used for navigation.
+ */
 @Composable
 fun NoInternet(navController: NavHostController) {
     Box(

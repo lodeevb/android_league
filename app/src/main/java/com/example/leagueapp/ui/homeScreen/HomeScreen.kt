@@ -27,6 +27,14 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.leagueapp.ui.components.Grid
 
+
+/**
+ * Composable function representing the HomeScreen UI.
+ *
+ * @param innerPadding Padding values for the inner content.
+ * @param viewModel [HomeScreenViewModel] to manage data for the HomeScreen.
+ * @param navController [NavHostController] used for navigation.
+ */
 @Composable
 fun HomeScreen(innerPadding: PaddingValues, viewModel : HomeScreenViewModel = viewModel(factory = HomeScreenViewModel.Factory),
                navController: NavHostController
@@ -76,5 +84,4 @@ fun HomeScreen(innerPadding: PaddingValues, viewModel : HomeScreenViewModel = vi
             Grid(championList = championState.championList, navController =  navController)
         }
     }
-
 }

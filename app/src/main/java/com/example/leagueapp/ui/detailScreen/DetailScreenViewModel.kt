@@ -16,14 +16,27 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
+/**
+ * ViewModel class responsible for managing data for the [DetailScreen].
+ *
+ * @property championRepository The [repository][ChampionRepository] for retrieving champion data.
+ */
 class DetailScreenViewModel(private val championRepository: ChampionRepository) : ViewModel() {
 
+    /** The state of DetailScreen */
     var detailScreenState: DetailScreenState by mutableStateOf(DetailScreenState.Loading)
         private set
 
+    /** The state of ChampionDetail */
     private val _detailChampionState = MutableStateFlow(ChampionDetailState())
     val detailChampionState: StateFlow<ChampionDetailState> = _detailChampionState
 
+
+    /**
+     * Fetches details of a champion using the champion ID.
+     *
+     * @param championId The ID of the champion to fetch details for.
+     */
     fun fetchChampionDetails(championId: String) {
             var championDetail: ChampionWithSpells? = null
             viewModelScope.launch {
@@ -39,12 +52,20 @@ class DetailScreenViewModel(private val championRepository: ChampionRepository) 
             }
     }
 
+    /**
+     * Updates the favorite status of a champion using the champion ID.
+     *
+     * @param championId The ID of the champion to update the favorite status for.
+     */
     fun updateFavorite(championId: String) {
         viewModelScope.launch {
             championRepository.changeFavorite(championId)
         }
     }
 
+    /**
+     * Companion object providing a [ViewModelProvider.Factory] for creating instances of [DetailScreenViewModel].
+     */
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {

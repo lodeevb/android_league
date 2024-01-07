@@ -17,16 +17,27 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import java.io.IOException
 
+/**
+ * ViewModel class responsible for managing data for the [FavoriteScreen].
+ *
+ * @property championRepository The [repository][ChampionRepository] for retrieving champion data.
+ */
 class FavoriteScreenViewModel(private val championRepository: ChampionRepository) : ViewModel() {
+
+    /** The state of the FavoriteScreen. */
     var favoriteScreenState: FavoriteScreenState by mutableStateOf(FavoriteScreenState.Loading)
         private set
 
+    /** The state of the FavoriteScreen. */
     lateinit var championListState: StateFlow<ChampionListState>
 
     init {
         getFavoriteChampions()
     }
 
+    /**
+     * Retrieves the faovirte champions data from the repository and updates the state.
+     */
     private fun getFavoriteChampions() {
         try {
             championListState = championRepository.getFavoriteChampions().map {
@@ -42,6 +53,9 @@ class FavoriteScreenViewModel(private val championRepository: ChampionRepository
         }
     }
 
+    /**
+     * Companion object providing a [ViewModelProvider.Factory] for creating instances of [FavoriteScreenViewModel].
+     */
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
