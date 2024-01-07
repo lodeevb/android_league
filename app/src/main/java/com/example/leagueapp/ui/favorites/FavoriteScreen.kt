@@ -90,7 +90,6 @@ fun FavoriteScreen(innerPadding: PaddingValues, navController: NavHostController
                         )
                     }
                 }
-
             }
         }
     }

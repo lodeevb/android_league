@@ -14,8 +14,6 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
-import java.io.IOException
 
 class HomeScreenViewModel(private val championRepository: ChampionRepository) : ViewModel() {
 
@@ -39,7 +37,7 @@ class HomeScreenViewModel(private val championRepository: ChampionRepository) : 
                 initialValue = ChampionListState(),
             )
             homeScreenState = HomeScreenState.Success
-        } catch (e: IOException) {
+        } catch (e: Exception) {
             homeScreenState = HomeScreenState.Error
         }
     }
